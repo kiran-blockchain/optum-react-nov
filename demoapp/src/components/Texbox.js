@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const TextBox = (prop) => {
+const TextBox = (props) => {
         const [email,setEmail]= useState('test@gmail.com');
 
         //event handler

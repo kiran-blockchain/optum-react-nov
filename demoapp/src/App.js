@@ -1,7 +1,9 @@
 import Counter from "./components/Counter";
+import Dropdown from "./components/Dropdown";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import TextBox from "./components/Texbox";
+import Toggle from "./components/Toggle";
 
 //Step1 
 
@@ -16,6 +18,8 @@ const App =(props)=>{
        <div className="container mt-5">
         <Counter/>
         <TextBox/>
+        <Dropdown/>
+        <Toggle/>
        </div>
        <Footer/>
     </div>
