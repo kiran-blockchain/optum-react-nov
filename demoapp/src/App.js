@@ -4,6 +4,7 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import TextBox from "./components/Texbox";
 import Toggle from "./components/Toggle";
+import UserList from "./components/UserList";
 
 //Step1 
 
@@ -20,6 +21,7 @@ const App =(props)=>{
         <TextBox/>
         <Dropdown/>
         <Toggle/>
+        <UserList/>
        </div>
        <Footer/>
     </div>
