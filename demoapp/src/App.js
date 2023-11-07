@@ -24,11 +24,11 @@ const App = (props) => {
     setCartItems([...cartItems,item])
   }
   return (
-    <CartContext.Provider 
-    value={{
+    <CartContext.Provider
+     value={{
       items:cartItems,
-    setCartItems:addToCart
-    }} >
+    setCartItems:addToCart}}
+    >
       <div>
         <Header />
         <AppRoutes />

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 
 const TextBox = (props) => {
     const config = props.inputConfig;
@@ -40,4 +40,4 @@ const TextBox = (props) => {
 // id
 // type
 
-export default TextBox;
+export default TextBox ;
