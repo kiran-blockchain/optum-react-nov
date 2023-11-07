@@ -1,6 +1,12 @@
+import { useContext } from "react";
+import { useNavigate } from "react-router";
+import { CartContext } from "../context/CartContext";
+
 const Header = (props) => {
     //business area
     const companyName ="Optum";
+    const navigate = useNavigate();
+    const cartContext = useContext(CartContext);
     
     //presentation 
     return (
@@ -12,30 +18,23 @@ const Header = (props) => {
           </button>
           <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav me-auto">
-              <li class="nav-item">
-                <a class="nav-link active" href="#">Home
-                  <span class="visually-hidden">(current)</span>
-                </a>
+             
+              <li class="nav-item" onClick={e=>{
+                navigate('/login')
+              }}>
+                <a class="nav-link">Login</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Features</a>
+              <li class="nav-item" onClick={e=>{
+                navigate('/products')
+              }}>
+                <a class="nav-link" href="#">Products</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Pricing</a>
+              <li class="nav-item" onClick={e=>{
+                navigate('/cart')
+              }}>
+                <a class="nav-link" href="#">Cart - {cartContext.items.length}</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" href="#">Action</a>
-                  <a class="dropdown-item" href="#">Another action</a>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Separated link</a>
-                </div>
-              </li>
+             
             </ul>
           </div>
         </div>

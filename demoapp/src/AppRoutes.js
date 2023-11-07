@@ -7,7 +7,9 @@ const AppRoutes = (props)=>{
     return(
         <Routes>
             <Route path="/login" element={<Login/>}></Route>
-            <Route path="/products" element={<Products/>}></Route>
+            <Route path="/products" element={<Products/>}>
+              
+            </Route>
             <Route path="/cart" element={<Cart/>}></Route>
             <Route path="*" element={<Login/>}></Route>
         </Routes>
