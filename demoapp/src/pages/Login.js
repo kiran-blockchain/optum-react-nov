@@ -1,10 +1,20 @@
+import { useState } from "react";
 import Button from "../components/Button";
 import TextBox from "../components/Texbox"
 
 const Login =(props)=>{
-
+    const [loginData,setLogin] = useState({
+        username:"",
+        password:""
+    })
     const handleChange = (e)=>{
-        console.log(e.target.name+ "=>"+e.target.value)
+        console.log(e.target.name+ "=>"+e.target.value);
+        let login = loginData;
+        login[e.target.name]= e.target.value;
+        console.log(login);
+        //loginData.username
+        ///loginData[username]
+        setLogin({...login});
     };
     const handleClick = ()=>{
         console.log("Login Clicked");
@@ -38,6 +48,10 @@ const Login =(props)=>{
             <TextBox inputConfig ={login.username}/>
             <TextBox inputConfig ={login.password}/>
             <Button btnConfig={login.button}/>
+            <pre>
+                {JSON.stringify(loginData)}
+            </pre>
+            
         </div>
     )
 }
