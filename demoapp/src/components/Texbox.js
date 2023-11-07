@@ -1,33 +1,32 @@
 import { useState } from "react";
 
 const TextBox = (props) => {
-        const [email,setEmail]= useState('test@gmail.com');
-
-        //event handler
-        const handleChange = (e)=>{
-            //e is called event
-            //e.target will tell us which control is originating the event
-            //e.target.value will tell give the latest value of the ctrl
-            console.log(e.target.value);
-            setEmail(e.target.value)
-        };
+        const config = props.inputConfig;
     return (
-        <div class="form-group row">
-            <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-            <div class="col-sm-10">
+        <div class="form-group row mb-3">
+            <label for={config.id} 
+            class="col-sm-2 col-form-label">{config.label}</label>
+            <div class="col-sm-6">
                 <input
-                    type="text"
+                    type={config.type}
                     class="form-control"
-                    id="inputEmail3"
-                    placeholder="Email" 
-                    value={email}
-                    name="email"
-                    onChange={handleChange}
+                    id={config.id}
+                    placeholder={config.placeholder}
+                    //value={config.value}
+                    name={config.name}
+                    onChange={config.onChange}
                     />
-                    {email}
+                    
             </div>
         </div>
     )
 }
+// label
+// placeholder
+// value
+// name
+// handleEvent
+// id
+// type
 
 export default TextBox;
