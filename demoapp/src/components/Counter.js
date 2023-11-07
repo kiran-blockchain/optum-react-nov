@@ -11,25 +11,18 @@ const Counter =(props)=>{
     const reset =()=>{
         setCount(0);
     }
+    const incrementConfig ={
+        text:"increment",
+        cssClass:"btn btn-primary",
+        handleClick:increment
+    }
     return(
         <div>
             <h1>Count-{count}</h1>
             <Button
-            text={props.btnProps.text}
-            cssClass ="btn btn-primary"
-            handleClick= {increment}
+             btnConfig ={incrementConfig}
             />
-            
-            
-             <Button
-            text="Decrement"
-            cssClass ="btn btn-danger mt-3"
-            handleClick= {decrement}/>
-             
-             <Button
-            text="Reset"
-            cssClass ="btn btn-warning mt-3"
-            handleClick= {reset}/>
+
         </div>
     )
 };

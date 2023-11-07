@@ -1,57 +1,92 @@
 import { useState } from "react";
 import Button from "../components/Button";
 import TextBox from "../components/Texbox"
+import axios from "axios";
+import { useFormik } from "formik";
+import { loginValidation } from "../utils/loginValidation";
 
-const Login =(props)=>{
-    const [loginData,setLogin] = useState({
-        username:"",
-        password:""
+const Login = (props) => {
+    
+    const [loginData, setLogin] = useState({
+        username: "",
+        password: "",
+        isLoggedIn:null,
+        token:""
+    });
+    const formik = useFormik({
+        initialValues:{username:"",password:""},
+        validationSchema:loginValidation,
+        onSubmit:(values)=>{
+            console.log(values);
+        }
     })
-    const handleChange = (e)=>{
-        console.log(e.target.name+ "=>"+e.target.value);
+    const handleChange = (e) => {
+        formik.handleChange(e);
+        console.log(e.target.name + "=>" + e.target.value);
         let login = loginData;
-        login[e.target.name]= e.target.value;
+        login[e.target.name] = e.target.value;
         console.log(login);
         //loginData.username
         ///loginData[username]
-        setLogin({...login});
+        setLogin({ ...login });
     };
-    const handleClick = ()=>{
-        console.log("Login Clicked");
+    const handleClick = async () => {
+        try {
+            const result = await axios.post('https://fakestoreapi.com/auth/login',loginData);
+            console.log(result.data);
+            
+            if(result.data.token){
+                setLogin({...loginData,isLoggedIn:true,token:result.data.token});
+            }
+        } catch (ex) {
+            console.log(ex);
+            setLogin({...loginData,isLoggedIn:false,token:""});
+        }
     }
     const login = {
-        username:{
-            id:"username",
-            type:"text",
-            placeholder:"Enter User name",
-            label:"User Name",
-            name:"username",
-            onChange:handleChange
+        username: {
+            id: "username",
+            type: "text",
+            placeholder: "Enter User name",
+            label: "User Name",
+            name: "username",
+            onChange: handleChange
         },
-        password:{
-            id:"password",
-            type:"password",
-            placeholder:"Enter Password",
-            label:"Password",
-            name:"password",
-            onChange:handleChange
+        password: {
+            id: "password",
+            type: "password",
+            placeholder: "Enter Password",
+            label: "Password",
+            name: "password",
+            onChange: handleChange
         },
-        button:{
-            cssClass:"btn btn-primary",
-            text:"Login",
-            handleClick:handleClick
+        button: {
+            cssClass: "btn btn-primary",
+            text: "Login",
+            handleClick: handleClick
+        }
+    };
+    const showLoginResult =()=>{
+        if(loginData.isLoggedIn===false){
+            return <h6 className="text-danger">Invalid credentials</h6>
+        } else if(loginData.isLoggedIn){
+            return <h6 className="text-success">User Logged in</h6>
+        }else{
+            return null;
         }
     };
 
-    return(
+
+    return (
         <div className="container mt-5">
-            <TextBox inputConfig ={login.username}/>
-            <TextBox inputConfig ={login.password}/>
-            <Button btnConfig={login.button}/>
+            <TextBox inputConfig={login.username} formik={formik}/>
+            <TextBox inputConfig={login.password} formik={formik}/>
+            {showLoginResult()}
+            <Button btnConfig={login.button} />
             <pre>
                 {JSON.stringify(loginData)}
             </pre>
-            
+
         </div>
     )
 }
