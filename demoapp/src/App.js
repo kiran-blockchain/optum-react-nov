@@ -1,3 +1,4 @@
+import AppRoutes from "./AppRoutes";
 import Counter from "./components/Counter";
 import Dropdown from "./components/Dropdown";
 import Footer from "./components/Footer";
@@ -21,14 +22,7 @@ const App =(props)=>{
   return(
     <div>
        <Header/>
-       <Login/>
-       {/* <div className="container mt-5">
-        {/* <Counter btnProps={button}/> */}
-        {/* <TextBox/>
-        <Dropdown/>
-        <Toggle/>
-        <UserList/> 
-       </div> */}
+        <AppRoutes/>
        <Footer/>
     </div>
    
