@@ -2,23 +2,26 @@ import { useState } from "react";
 import Button from "../components/Button";
 import TextBox from "../components/Texbox"
 import axios from "axios";
-import { useFormik } from "formik";
+import { useFormik } from "formik";//import formik
 import { loginValidation } from "../utils/loginValidation";
 
 const Login = (props) => {
-    
+
     const [loginData, setLogin] = useState({
         username: "",
         password: "",
-        isLoggedIn:null,
-        token:""
+        isLoggedIn: null,
+        token: ""
     });
+    //configure formik
     const formik = useFormik({
-        initialValues:{username:"",password:""},
-        validationSchema:loginValidation,
-        onSubmit:(values)=>{
-            console.log(values);
-        }
+        initialValues: { username: "", password: "" },
+        validationSchema: loginValidation,
+        // onSubmit: async (values) => {
+        //     if (formik.isValid) {
+        //         await handleClick();
+        //     }
+        // }
     })
     const handleChange = (e) => {
         formik.handleChange(e);
@@ -31,16 +34,18 @@ const Login = (props) => {
         setLogin({ ...login });
     };
     const handleClick = async () => {
-        try {
-            const result = await axios.post('https://fakestoreapi.com/auth/login',loginData);
-            console.log(result.data);
-            
-            if(result.data.token){
-                setLogin({...loginData,isLoggedIn:true,token:result.data.token});
+        if (formik.dirty && formik.isValid) {
+            try {
+                const result = await axios.post('https://fakestoreapi.com/auth/login', loginData);
+                console.log(result.data);
+
+                if (result.data.token) {
+                    setLogin({ ...loginData, isLoggedIn: true, token: result.data.token });
+                }
+            } catch (ex) {
+                console.log(ex);
+                setLogin({ ...loginData, isLoggedIn: false, token: "" });
             }
-        } catch (ex) {
-            console.log(ex);
-            setLogin({...loginData,isLoggedIn:false,token:""});
         }
     }
     const login = {
@@ -66,12 +71,12 @@ const Login = (props) => {
             handleClick: handleClick
         }
     };
-    const showLoginResult =()=>{
-        if(loginData.isLoggedIn===false){
+    const showLoginResult = () => {
+        if (loginData.isLoggedIn === false) {
             return <h6 className="text-danger">Invalid credentials</h6>
-        } else if(loginData.isLoggedIn){
+        } else if (loginData.isLoggedIn) {
             return <h6 className="text-success">User Logged in</h6>
-        }else{
+        } else {
             return null;
         }
     };
@@ -79,8 +84,8 @@ const Login = (props) => {
 
     return (
         <div className="container mt-5">
-            <TextBox inputConfig={login.username} formik={formik}/>
-            <TextBox inputConfig={login.password} formik={formik}/>
+            <TextBox inputConfig={login.username} formik={formik} />
+            <TextBox inputConfig={login.password} formik={formik} />
             {showLoginResult()}
             <Button btnConfig={login.button} />
             <pre>
