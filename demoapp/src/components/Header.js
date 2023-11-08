@@ -21,7 +21,11 @@ const Header = (props) => {
           </button>
           <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav me-auto">
-             
+            <li class="nav-item" onClick={e=>{
+                navigate('/register')
+              }}>
+                <a class="nav-link">Register</a>
+              </li>
               <li class="nav-item" onClick={e=>{
                 navigate('/login')
               }}>
