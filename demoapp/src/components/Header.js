@@ -1,12 +1,15 @@
-import { useContext } from "react";
+import { useContext, useReducer } from "react";
 import { useNavigate } from "react-router";
 import { CartContext } from "../context/CartContext";
+import { useSelector } from "react-redux";
 
 const Header = (props) => {
     //business area
     const companyName ="Optum";
     const navigate = useNavigate();
-    const cartContext = useContext(CartContext);
+    // const cartContext = useContext(CartContext);
+    const cartReducer = useSelector(x=>x.cart);
+
     
     //presentation 
     return (
@@ -32,7 +35,7 @@ const Header = (props) => {
               <li class="nav-item" onClick={e=>{
                 navigate('/cart')
               }}>
-                <a class="nav-link" href="#">Cart - {cartContext.items.length}</a>
+                <a class="nav-link" href="#">Cart -{cartReducer.cartItems.length}</a>
               </li>
              
             </ul>
