@@ -4,9 +4,13 @@ import TextBox from "../components/Texbox"
 import axios from "axios";
 import { useFormik } from "formik";//import formik
 import { loginValidation } from "../utils/loginValidation";
+import { useDispatch } from "react-redux";
+import {login as loginAction} from "../store/AuthReducer"
+import { useNavigate } from "react-router";
 
 const Login = (props) => {
-
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [loginData, setLogin] = useState({
         username: "",
         password: "",
@@ -42,6 +46,9 @@ const Login = (props) => {
 
                 if (result.data.token) {
                     setLogin({ ...loginData, isLoggedIn: true, token: result.data.token });
+                    dispatch(loginAction({token:result.data.token}));
+                    navigate("/products");
+                    
                 }
             } catch (ex) {
                 console.log(ex);
